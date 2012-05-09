@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/option.xsd">
+	<import>
+		<categories>
+			<category name="message.general.mentions">
+				<parent>message.general</parent>
+			</category>
+		</categories>
+		
+		<options>
+			<option name="module_mention">
+				<categoryname>module.content</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			
+			<option name="mention_enable_mentions">
+				<categoryname>message.general.mentions</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<options>module_mention</options>
+			</option>
+			
+			<option name="mention_enable_hashtags">
+				<categoryname>message.general.mentions</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<options>module_mention</options>
+			</option>
+			
+			<!-- <option name="mention_enable_notifications">
+				<categoryname>message.general.mentions</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<options>module_mention</options>
+			</option> -->
+		</options>
+	</import>
+</data>
