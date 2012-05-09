@@ -26,8 +26,8 @@ class MentionParser extends URLParser {
 	/** Twitter extractor - used to extract @mentions and #hashtags */
 	protected $extractor;
 	
-	protected $enableMentions = true;	
-	protected $enableHashtags = true;
+	protected $enableMentions;
+	protected $enableHashtags;
 	
 	protected $mentions = array();
 	protected $hashtags = array();
@@ -36,7 +36,7 @@ class MentionParser extends URLParser {
 		parent::init();
 		// since the unmodified twitter-text-php library is used, wcf autoloading does not work
 		if(!class_exists('\\Twitter_Extractor'))
-			require_once WCF_DIR.'lib/Twitter/Extractor.php';	
+			require_once WCF_DIR.'lib/Twitter/Extractor.php';
 	}
 	
 	/**
@@ -44,7 +44,7 @@ class MentionParser extends URLParser {
 	*
 	* @return  string
 	*/	
-	public function parse($text, $enableMentions = true, $enableHashtags = true) {	
+	public function parse($text, $enableMentions = true, $enableHashtags = true) {
 		// store values	
 		$this->text = $text;		
 		$this->enableMentions = $enableMentions;
@@ -56,10 +56,10 @@ class MentionParser extends URLParser {
 		
 		// create extractor
 		$this->extractor = new \Twitter_Extractor($this->text);
-			
+		
 		// cache codes
 		$this->cacheCodes();
-				
+		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
 
@@ -94,19 +94,19 @@ class MentionParser extends URLParser {
 		foreach($this->hashtags as $hashtag) {
 			$url = LinkHandler::getInstance()->getLink('Search', array('q' => $hashtag));
 			$this->text = StringUtil::replace($hashtag, 
-				$this->createBBCodeLink($url, $hashtag), 
+				$this->createBBCodeLink($url, $hashtag),
 				$this->text);
 			// TODO maybe extract hashtags with indices and replace by index in order to 
 			// avoid 'wrong' replacement?
-		}				
+		}
 	}	
 	
-	protected function parseMentions() {		
+	protected function parseMentions() {
 		// this is *deliberately* local
 		$mentions = $this->extractor->extractMentionedUsernames();
-		// TODO extract with indices?	(avoid false matches)	
+		// TODO extract with indices?	(avoid false matches)
 
-		if(count($mentions) > 0) {	
+		if(count($mentions) > 0) {
 			
 			$sql = "user.username LIKE CONCAT(?, '%')";
 			
@@ -118,15 +118,15 @@ class MentionParser extends URLParser {
 			
 			$sql = "SELECT user.username, user.userID 
 				FROM wcf".WCF_N."_user user
-				" . $conditions 				
-				. "ORDER by user.username DESC";			
+				" . $conditions 
+				. "ORDER by user.username DESC";
 			
 			$statement = WCF::getDB()->prepareStatement($sql);
-			$statement->execute($conditions->getParameters());				
+			$statement->execute($conditions->getParameters());
 			
-			while ($row = $statement->fetchArray()) {				
+			while ($row = $statement->fetchArray()) {
 				// type safe check since strpos can be 0
-				if(false !== strpos($this->text, $row['username'])) { 
+				if(false !== strpos($this->text, $row['username'])) {
 					// mention is confirmed, write to global array
 					$this->mentions[$row['userID']] = $row['username'];
 										
@@ -144,6 +144,5 @@ class MentionParser extends URLParser {
 			}
 			$this->text = StringStack::reinsertStrings($this->text, 'mentionParser');
 		}
-		
-	}	
+	}
 }
