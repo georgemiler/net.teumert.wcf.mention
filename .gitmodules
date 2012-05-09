@@ -1,0 +1,3 @@
+[submodule "twitter-text-php"]
+	path = twitter-text-php
+	url = git://github.com/ngnpope/twitter-text-php.git
