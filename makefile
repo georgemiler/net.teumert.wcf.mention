@@ -7,7 +7,7 @@ objects = files.tar
 # build complete package
 all: .submodules $(objects) twitter-text-php.tar
 	tar --concatenate --file=files.tar twitter-text-php.tar
-	tar cvf $(packageName).tar * --exclude files --exclude twitter-text-php
+	tar cvf $(packageName).tar * --exclude files --exclude twitter-text-php --exclude twitter-text-php.tar
 
 # pseudo-dependency to fetch submodules
 .submodules:
