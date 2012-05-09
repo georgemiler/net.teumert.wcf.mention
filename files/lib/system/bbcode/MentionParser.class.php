@@ -78,8 +78,11 @@ class MentionParser extends URLParser {
 		return $this->text;
 	}
 	
-	public function createBBCodeLink($url, $display = '') {
-		if($display == '')
+	public function createBBCodeLink($url, $display = null) {
+		$path = WCF::getPath(ApplicationHandler::getInstance()->getAbbreviation(PACKAGE_ID));
+		if(ApplicationHandler::getInstance()->getActiveGroup() === null)
+			$url = $path . $url;
+		if($display === null)
 			return "[url]" . $url . "[/url]";
 		return "[url='" . $url ."']" . $display . "[/url]";
 	} 
@@ -89,8 +92,7 @@ class MentionParser extends URLParser {
 	protected function parseHashtags() {
 		$this->hashtags = $this->extractor->extractHashtags();
 		foreach($this->hashtags as $hashtag) {
-			$url = PAGE_URL . LinkHandler::getInstance()->getLink('Search', array('q' => $hashtag));
-			// TODO avoid PAGE_URL here
+			$url = LinkHandler::getInstance()->getLink('Search', array('q' => $hashtag));
 			$this->text = StringUtil::replace($hashtag, 
 				$this->createBBCodeLink($url, $hashtag), 
 				$this->text);
@@ -99,7 +101,7 @@ class MentionParser extends URLParser {
 		}				
 	}	
 	
-	public function parseMentions() {		
+	protected function parseMentions() {		
 		// this is *deliberately* local
 		$mentions = $this->extractor->extractMentionedUsernames();
 		// TODO extract with indices?	(avoid false matches)	
@@ -128,8 +130,7 @@ class MentionParser extends URLParser {
 					// mention is confirmed, write to global array
 					$this->mentions[$row['userID']] = $row['username'];
 										
-					$url = PAGE_URL .'/' // TODO avoid PAGE_URL here
-						. LinkHandler::getInstance()->getLink('User', 
+					$url = LinkHandler::getInstance()->getLink('User', 
 							array(
 								'id' => $row['userID'],
 								'title' => $row['username'])
