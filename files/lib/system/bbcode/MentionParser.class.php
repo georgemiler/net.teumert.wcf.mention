@@ -9,16 +9,13 @@ use wcf\system\request\LinkHandler;
 use wcf\System\Regex;
 use wcf\system\WCF;
 
-use wcf\util\StringUtil;
-use wcf\util\StringStack;
-
 /**
  * WCF @Mention & #Hashtag Parser
  *
  * Parses messages and generates bbcode [url] tags around @username mentions and #hashtags.
  * 
  * @author     Sebastian Teumert
- * @copyright  Copyright © 2012 Sebastian Teumert
+ * @copyright  © 2012 Sebastian Teumert
  * @license    GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  * @package    net.teumert.wcf.mentions
  * @subpackage system.bbcode
