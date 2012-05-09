@@ -1,3 +1,6 @@
 [submodule "twitter-text-php"]
 	path = twitter-text-php
 	url = git://github.com/ngnpope/twitter-text-php.git
+[submodule "requirements/net.teumert.wcf.util"]
+	path = requirements/net.teumert.wcf.util
+	url = git@github.com:NetzwergX/net.teumert.wcf.util.git
