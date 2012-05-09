@@ -17,8 +17,7 @@
 				<label for="enableHashtags"><input id="enableHashtags" name="enableHashtags" type="checkbox" value="1"{if $enableHashtags} checked="checked"{/if} /> {lang}wcf.message.settings.enableHashtags{/lang}</label>
 				<small>{lang}wcf.message.settings.enableHashtags.description{/lang}</small>
 			</dd>
-			{/if}
-			
+			{/if}			
 			}]]></templatecode>
 		</templatelistener>
 		
