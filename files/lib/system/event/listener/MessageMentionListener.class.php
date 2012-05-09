@@ -1,8 +1,6 @@
 <?php
 namespace wcf\system\event\listener;
-use wcf\data\acp\session\access\log\ACPSessionAccessLogEditor;
-use wcf\data\acp\session\log\ACPSessionLog;
-use wcf\data\acp\session\log\ACPSessionLogEditor;
+use wcf\system\bbcode\MentionParser;
 use wcf\system\event\IEventListener;
 use wcf\system\WCF;
 
@@ -16,7 +14,7 @@ use wcf\system\WCF;
  * @subpackage	system.event.listener
  * @category 	Community Framework (third party)
  */
-class SessionAccessLogListener implements IEventListener {
+class MessageMentionListener implements IEventListener {
 	/**
 	 * @see wcf\system\event\IEventListener::execute()
 	 */
