@@ -58,6 +58,7 @@ class MessageMentionListener extends AbstractEventListener {
 			$returnValues = $eventObj->objectAction->getReturnValues();
 			$message = $returnValues['returnValues'];
 		} else if ($eventObj->objectAction->getActionName() === 'update') {
+			$returnValues = $eventObj->objectAction->getObjects();
 			$message = $returnValues['returnValues'][0];
 		} // we dont need to do anything on delete
 		
