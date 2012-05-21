@@ -141,4 +141,12 @@ class MentionParser extends URLParser {
 			$this->text = StringStack::reinsertStrings($this->text, 'mentionParser');
 		}
 	}
+	
+	public function getMentions() {
+		return $this->mentions;
+	}
+	
+	public function getHashtags() {
+		return $this->hashtags;
+	}
 }
