@@ -62,25 +62,26 @@ class MentionParser extends URLParser {
 		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'beforeParsing');
-
+		
 		// do actual work
 		if($this->enableMentions) $this->parseMentions();
 		if($this->enableHashtags) $this->parseHashtags();
-
+		
 		// call event
 		EventHandler::getInstance()->fireAction($this, 'afterParsing');
 		
 		if (count($this->cachedCodes) > 0) {
 			// insert cached codes
 			$this->insertCachedCodes();
-		}		
+		}
 		
 		return $this->text;
 	}
 	
 	public function createBBCodeLink($url, $display = null) {
 		$path = WCF::getPath(ApplicationHandler::getInstance()->getAbbreviation(PACKAGE_ID));
-		if(ApplicationHandler::getInstance()->getActiveGroup() === null)
+		// make sure path is absolute
+		if(ApplicationHandler::getInstance()->getActiveGroup() === null) 
 			$url = $path . $url;
 		if($display === null)
 			return "[url]" . $url . "[/url]";
@@ -91,21 +92,18 @@ class MentionParser extends URLParser {
 	 */
 	protected function parseHashtags() {
 		$this->hashtags = $this->extractor->extractHashtags();
-		foreach($this->hashtags as $hashtag) {
+		foreach($this->hashtags as $hashtag) {			
 			$url = LinkHandler::getInstance()->getLink('Search', array('q' => $hashtag));
 			$this->text = StringUtil::replace($hashtag, 
 				$this->createBBCodeLink($url, $hashtag),
 				$this->text);
-			// TODO maybe extract hashtags with indices and replace by index in order to 
-			// avoid 'wrong' replacement?
 		}
-	}	
+	}
 	
 	protected function parseMentions() {
 		// this is *deliberately* local
 		$mentions = $this->extractor->extractMentionedUsernames();
-		// TODO extract with indices?	(avoid false matches)
-
+		
 		if(count($mentions) > 0) {
 			
 			$sql = "user.username LIKE CONCAT(?, '%')";
@@ -129,12 +127,10 @@ class MentionParser extends URLParser {
 				if(false !== strpos($this->text, $row['username'])) {
 					// mention is confirmed, write to global array
 					$this->mentions[$row['userID']] = $row['username'];
-										
+					
 					$url = LinkHandler::getInstance()->getLink('User', 
-							array(
-								'id' => $row['userID'],
-								'title' => $row['username'])
-							);
+							array('id' => $row['userID'],
+								'title' => $row['username']));
 					
 					$hash = StringStack::pushToStringStack(
 						$this->createBBCodeLink($url, $row['username']), 'mentionParser');

@@ -25,6 +25,7 @@ class MessageMentionListener extends AbstractEventListener {
 	public function execute($eventObj, $className, $eventName) {
 		if (!MODULE_MENTION)
 			return;
+		parent::execute($eventObj, $className, $eventName);
 	}
 
 	/**
