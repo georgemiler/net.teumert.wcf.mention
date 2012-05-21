@@ -10,9 +10,8 @@ Features:
 ---------
 
 * Auto-linking of @User mentions
-* #Hashtag auto-linking to search
-* [Plugin] Notification of mentioned user
-* [Plugin] Integration of #Hashtags into trend plugin
+* #Hashtag auto-linking to search form
+* [Optional] Notification of mentioned user via notification system
 
 
 Thanks & Contributions:
@@ -20,9 +19,9 @@ Thanks & Contributions:
 
 I want to thank the following persons for their efforts on the twitter-text-php library (<https://github.com/ngnpope/twitter-text-php>), which is used by this plugin.
 
-* Matt Sanford <https://github.com/mzsanford> for the orignal Ruby and Java implementions.
-* Mike Cochrane <https://github.com/mikenz> for the initial PHP code.
-* Nick Pope <https://github.com/ngnpope> For the bulk of the maintenance work to date.
+* Matt Sanford (<https://github.com/mzsanford>) for the orignal Ruby and Java implementions.
+* Mike Cochrane (<https://github.com/mikenz>) for the initial PHP code.
+* Nick Pope (<https://github.com/ngnpope>) For the bulk of the maintenance work to date.
 
 
 License:

@@ -18,6 +18,7 @@
 		<requiredpackage minversion="1.0.0 Alpha 1">net.teumert.wcf.util</requiredpackage>
 		<requiredpackage minversion="1.0.0 Alpha 1">com.woltlab.wcf.bbcode</requiredpackage>
 		<requiredpackage minversion="1.0.0 Alpha 1">com.woltlab.wcf.search</requiredpackage>
+		<requiredpackage minversion="1.0.0 Alpha 1">com.woltlab.wcf.notification</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">		
