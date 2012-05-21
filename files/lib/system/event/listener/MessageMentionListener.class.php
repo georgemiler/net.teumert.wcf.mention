@@ -1,5 +1,6 @@
 <?php
 namespace wcf\system\event\listener;
+
 use wcf\system\bbcode\MentionParser;
 use wcf\system\event\AbstractEventListener;
 use wcf\system\WCF;
@@ -44,6 +45,25 @@ class MessageMentionListener extends AbstractEventListener {
 		$eventObj->text = MentionParser::getInstance()->parse($eventObj->text, 
 			$this->enableMentions && MENTION_ENABLE_MENTIONS,
 			$this->enableHashtags && MENTION_ENABLE_HASHTAGS);
+	}
+	
+	/**
+	* @see wcf\form\MessageForm::saved()
+	*/
+	public function onSaved($eventObj, $className) {
+		$mentions = MentionParser::getInstance()->getMentions();
+		
+		$message = null;		
+		if($eventObj->objectAction->getActionName() === 'create') {	
+			$returnValues = $eventObj->objectAction->getReturnValues();
+			$message = $returnValues['returnValues'];
+		} else if ($eventObj->objectAction->getActionName() === 'update') {
+			$message = $returnValues['returnValues'][0];
+		} // we dont need to do anything on delete
+		
+		if($message != null && $message instanceof wcf\system\request\IRouteController) {
+			; // create notification (except for PMs)
+		}	
 	}
 	
 	/**
