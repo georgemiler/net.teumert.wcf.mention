@@ -12,6 +12,7 @@ Features:
 * Auto-linking of @User mentions
 * #Hashtag auto-linking to search form
 * [Optional] Notification of mentioned user via notification system
+* [Optional] Tracking of mentions - Every user gets a profile page with all posts in which he has been mentioned. Can be made private (hidden from others).
 
 
 Thanks & Contributions:
