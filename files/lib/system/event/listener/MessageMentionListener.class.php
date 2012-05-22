@@ -51,6 +51,16 @@ class MessageMentionListener extends AbstractEventListener {
 	* @see wcf\form\MessageForm::saved()
 	*/
 	public function onSaved($eventObj, $className) {
+		/* 	
+		 * KISS Principle
+		 *
+		 * If someone just wants to link @mentions, and does neither want tracking 
+		 * nor notifications, nothing needs to be done here
+		 * (no need to store mentions in db when not tracking / notificating).
+		 */ 
+		if (!MODULE_MENTION_TRACKING)
+			return;		
+		
 		$mentions = MentionParser::getInstance()->getMentions();
 		
 		$message = null;		
@@ -60,10 +70,13 @@ class MessageMentionListener extends AbstractEventListener {
 		} else if ($eventObj->objectAction->getActionName() === 'update') {
 			$returnValues = $eventObj->objectAction->getObjects();
 			$message = $returnValues['returnValues'][0];
-		} // we dont need to do anything on delete
+		} else if($eventObj->objectAction->getActionName() === 'delete') {
+			
+		}
 		
+		// object is route controller, so it can be linked and notification is possible
 		if($message != null && $message instanceof wcf\system\request\IRouteController) {
-			; // create notification (except for PMs)
+			
 		}	
 	}
 	
