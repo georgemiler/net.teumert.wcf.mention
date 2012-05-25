@@ -62,10 +62,10 @@ class MessageMentionListener extends AbstractEventListener {
 		 * (no need to store mentions in db when not tracking / notificating).
 		 */ 
 		if (!MODULE_MENTION_TRACKING)
-			return;			
+			return;
 		
 		// at first we need to get the controller of the message
-		// this is guesswork and based on best current practice of WCF naming conventions		
+		// this is guesswork and based on best current practice of WCF naming conventions
 		$controller = RequestHandler::getInstance()->getActiveRequest()->getPageName();
 
 		if (StringUtil::endsWith($controller, 'Add')) 
@@ -77,7 +77,7 @@ class MessageMentionListener extends AbstractEventListener {
 		
 		// now we need a route controller to build the route to this message
 		$message = null;		
-		if ($eventObj->objectAction->getActionName() === 'create') {	
+		if ($eventObj->objectAction->getActionName() === 'create') {
 			$returnValues = $eventObj->objectAction->getReturnValues();
 			$message = $returnValues['returnValues'];
 		} else if ($eventObj->objectAction->getActionName() === 'update') {
@@ -104,8 +104,8 @@ class MessageMentionListener extends AbstractEventListener {
 					'messageTitle' => $message->getTitle()
 					));
 				// TODO fire notification
-			}		
-		}	
+			}
+		}
 	}
 	
 	/**
