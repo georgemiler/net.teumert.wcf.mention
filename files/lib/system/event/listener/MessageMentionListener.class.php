@@ -1,6 +1,14 @@
 <?php
 namespace wcf\system\event\listener;
 
+use wcf\data\user\mention\UserMention;
+
+use wcf\data\user\mention\UserMentionEditor;
+
+use wcf\util\StringUtil;
+
+use wcf\system\request\RequestHandler;
+
 use wcf\system\bbcode\MentionParser;
 use wcf\system\event\AbstractEventListener;
 use wcf\system\WCF;
@@ -59,24 +67,49 @@ class MessageMentionListener extends AbstractEventListener {
 		 * (no need to store mentions in db when not tracking / notificating).
 		 */ 
 		if (!MODULE_MENTION_TRACKING)
-			return;		
+			return;			
 		
-		$mentions = MentionParser::getInstance()->getMentions();
+		// at first we need to get the controller of the message
+		// this is guesswork and based on best current practice of WCF naming conventions		
+		$controller = RequestHandler::getInstance()->getActiveRequest()->getPageName();
+
+		if(StringUtil::endsWith($controller, 'Add')) 
+			$controller = StringUtil::substring($controller, 0, StringUtil::length($haystack) - 3);
+		else if(StringUtil::endsWith($controller, 'Edit'))
+			$controller = StringUtil::substring($controller, StringUtil::length($haystack) - 4, 4);
+		else // likely no valid controller
+			return;
 		
+		// now we need a route controller to build the route to this message
 		$message = null;		
 		if($eventObj->objectAction->getActionName() === 'create') {	
 			$returnValues = $eventObj->objectAction->getReturnValues();
 			$message = $returnValues['returnValues'];
 		} else if ($eventObj->objectAction->getActionName() === 'update') {
-			$returnValues = $eventObj->objectAction->getObjects();
+			$returnValues = $eventObj->objectAction->getReturnValues();
 			$message = $returnValues['returnValues'][0];
 		} else if($eventObj->objectAction->getActionName() === 'delete') {
-			
+			$messages = $eventObj->objectAction->getObjects();
+			foreach($messages as $message)
+				if($message instanceof wcf\system\request\IRouteController)
+					UserMentionEditor::deleteAll(UserMention::getMentionIDs($controller, $message->getID()));
+				// TODO revoke unread notifications			
 		}
 		
 		// object is route controller, so it can be linked and notification is possible
 		if($message != null && $message instanceof wcf\system\request\IRouteController) {
-			
+			$mentionedUsers = MentionParser::getInstance()->getMentions();
+						
+			foreach($mentionedUsers as $userID => $username) {
+				$mention = UserMentionEditor::create(array(
+					'userID' => WCF::getUser()->userID,
+					'mentionedUserID' => $userID,
+					'controller' => $controller,
+					'messageID' => $message->getID(),
+					'messageTitle' => $message->getTitle()
+					));
+				// TODO fire notification
+			}		
 		}	
 	}
 	
