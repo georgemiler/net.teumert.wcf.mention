@@ -30,9 +30,9 @@ class UserMention extends DatabaseObject {
 	 * 
 	 * @param	string		$controller	Message controller, e.g. 'Post'
 	 * @param	integer		$messageID	ID of the message
-	 * @return 	array<wcf\data\user\mention\UserMention> 	List of mentions in the message
+	 * @return 	array<integer> 	List of mentions by mentionID in the message
 	 */
-	public static function getMentions($controller, $messageID) {
+	public static function getMentionIDs($controller, $messageID) {
 		$sql = "SELECT	mentionID
 			FROM	wcf".WCF_N."_user_mention
 			WHERE	messageID = ?
@@ -42,7 +42,7 @@ class UserMention extends DatabaseObject {
 		
 		$mentions = array();
 		while ($row = $statement->fetchArray()) {
-			$mentions[] = new UserMention(null, $row);
+			$mentions[] = $row['mentionID'];
 		}
 		
 		return $mentions;
