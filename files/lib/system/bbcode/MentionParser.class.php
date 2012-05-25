@@ -129,11 +129,11 @@ class MentionParser extends URLParser {
 					$this->mentions[$row['userID']] = $row['username'];
 					
 					$url = LinkHandler::getInstance()->getLink('User', 
-							array('id' => $row['userID'],
-								'title' => $row['username']));
-					
-					$hash = StringStack::pushToStringStack(
-						$this->createBBCodeLink($url, $row['username']), 'mentionParser');
+						array(
+							'id' => $row['userID'],
+							'title' => $row['username']
+						));					
+					$hash = StringStack::pushToStringStack($this->createBBCodeLink($url, $row['username']), 'mentionParser');
 					$this->text = StringUtil::replace($row['username'], $hash, $this->text);
 					// string stack avoids replacement of usernames in already inserted URLs 					
 				}
@@ -142,6 +142,11 @@ class MentionParser extends URLParser {
 		}
 	}
 	
+	/**
+	 * Returns the currently stored mentions
+	 * 
+	 * @return array<string> array containing mentions in the form userID => username
+	 */
 	public function getMentions() {
 		return $this->mentions;
 	}
