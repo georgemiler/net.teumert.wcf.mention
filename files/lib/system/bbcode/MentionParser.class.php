@@ -151,6 +151,11 @@ class MentionParser extends URLParser {
 		return $this->mentions;
 	}
 	
+	/**
+	 * Returns currently stored hashtags
+	 * 
+	 * @return array<string> hashtags (without the leading '#')
+	 */
 	public function getHashtags() {
 		return $this->hashtags;
 	}
