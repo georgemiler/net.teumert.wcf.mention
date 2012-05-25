@@ -6,12 +6,12 @@ use wcf\data\DatabaseObjectList;
 /**
  * Represents a list of mentions.
  * 
- * @author 	
- * @copyright	2001-2011 WoltLab GmbH
+ * @author	Sebastian Teumert
+ * @copyright	© 2012 Sebastian Teumert
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
- * @package	
+ * @package	net.teumert.wcf.mention
  * @subpackage	data.user.mention
- * @category 	Community Framework
+ * @category 	Community Framework (third party)
  */
 class UserMentionList extends DatabaseObjectList {
 	/**

@@ -7,5 +7,6 @@ CREATE TABLE wcf1_user_mention (
 	controller VARCHAR(255) NOT NULL,
 	messageID INT(10) NOT NULL,
 	messageTitle VARCHAR(255),	
-	KEY (mentionedUserID)
+	KEY (mentionedUserID),
+	KEY (controller, messageID)
 );

@@ -10,12 +10,12 @@ use wcf\system\WCF;
 /**
  * Executes mention-related actions.
  * 
- * @author	
- * @copyright	
+ * @author	Sebastian Teumert
+ * @copyright	© 2012 Sebastian Teumert
  * @license	GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
- * @package	
+ * @package	net.teumert.wcf.mention
  * @subpackage	data.user.mention
- * @category 	Community Framework
+ * @category 	Community Framework (third party)
  */
 class UserMentionAction extends AbstractDatabaseObjectAction {
 	/**
