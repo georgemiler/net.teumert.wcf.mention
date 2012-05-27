@@ -106,6 +106,16 @@ class MessageMentionListener extends AbstractEventListener {
 				// TODO fire notification
 			}
 		}
+		
+		// object is taggable, so hashtags can be added as tags
+		if ($message != null && $message instanceof wcf\system\tagging\ITagged) {
+			$taggable = $message->getTaggable();
+			// TODO: get objectType (string) from $taggable->getObjectTypeID()
+			// => TagEngine::getObjectTags()
+			// => merge with hashtags
+			// => TagEngine::addObjectTags()
+			// => open question: safe way to retrieve languageID ?
+		}
 	}
 	
 	/**
