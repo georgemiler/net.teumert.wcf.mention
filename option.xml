@@ -7,44 +7,38 @@
 			</category>
 		</categories>
 		
-		<categories>
-			<category name="module.user.mention">
-				<parent>module.user</parent>
-			</category>
-		</categories>
-		
 		<options>
+			<!-- modules -->
 			<option name="module_mention">
-				<categoryname>module.user.mention</categoryname>
+				<categoryname>module.content</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			
-			<option name="module_mention_notification">
-				<categoryname>module.user.mention</categoryname>
+			<option name="module_hashtags">
+				<categoryname>module.content</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			
-			<option name="module_mention_tracking">
-				<categoryname>module.user.mention</categoryname>
+			<option name="mention_tracking">
+				<categoryname>message.general.mentions</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 			</option>
 			
-			<option name="mention_enable_mentions">
+			<option name="mention_notification">
+				<categoryname>message.general.mentions</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			
+			<option name="hashtag_tagging">
 				<categoryname>message.general.mentions</categoryname>
 				<optiontype>boolean</optiontype>
 				<defaultvalue>1</defaultvalue>
 				<options>module_mention</options>
 			</option>
-			
-			<option name="mention_enable_hashtags">
-				<categoryname>message.general.mentions</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>1</defaultvalue>
-				<options>module_mention</options>
-			</option>			
 		</options>
 	</import>
 </data>
