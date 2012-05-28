@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="de">
+	<category name="wcf.acp.option">
+		<!-- modules -->
+		<item name="wcf.acp.option.module_mention"><![CDATA[@-Erwähnungen aktivieren]></item>
+		<item name="wcf.acp.option.module_hashtags"><![CDATA[#-Hashtags aktivieren]></item>
+		<!-- message options -->
+		<item name="wcf.acp.option.category.message.general.mentions"><![CDATA[Erwähnungen]]></item>		
+		<item name="wcf.acp.option.mention_tracking"><![CDATA[Erwähnungs-Verlauf anzeigen]]></item>
+		<item name="wcf.acp.option.mention_notification"><![CDATA[Bei Erwähnungen benachrichtigen]]></item>
+		<item name="wcf.acp.option.hashtag_tagging"><![CDATA[Hashtags automatisch als Tag setzen]]></item>
+	</category>
+</language>
